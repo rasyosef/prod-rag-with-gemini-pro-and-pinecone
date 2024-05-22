@@ -1,0 +1,8 @@
+gradio==4.21.0
+google==2.0.3
+llama-index==0.10.37
+llama-index-embeddings-gemini==0.1.6
+llama-index-llms-gemini==0.1.8
+llama-index-vector-stores-pinecone==0.1.7
+pinecone-client==3.2.2
+spacy==3.7.4
