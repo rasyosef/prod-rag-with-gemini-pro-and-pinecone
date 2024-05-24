@@ -57,8 +57,7 @@ def prepare_query_engine(api_key):
 
     # Query Engine
     query_engine = index_loaded.as_query_engine(
-        llm=llm,
-        similarity_top_k=3,
+        llm=llm, streaming=True, similarity_top_k=3, response_mode="tree_summarize"
     )
 
     return query_engine
@@ -67,16 +66,19 @@ def prepare_query_engine(api_key):
 # Generates response using the query engine
 def generate(query, api_key):
     if api_key.strip() == "" or not is_valid_gemini_api_key(api_key):
-        return "Please enter a valid Gemini api key"
+        yield "Please enter a valid Gemini api key"
     else:
+        query_engine = prepare_query_engine(api_key)
+        response = ""
         try:
-            query_engine = prepare_query_engine(api_key)
-            response = query_engine.query(query)
-            return response.response
+            streaming_response = query_engine.query(query)
+            for chunk in streaming_response.response_gen:
+                response += chunk
+                yield response
         except google.api_core.exceptions.BadRequest as br:
-            return "API key not valid. Please enter a valid API key"
+            yield "API key not valid. Please enter a valid API key"
         except Exception as e:
-            return str(e)
+            yield str(e)
 
 
 with gr.Blocks() as demo:
