@@ -27,8 +27,8 @@ def is_valid_gemini_api_key(api_key):
 def prepare_query_engine(api_key):
     # Gemini Embeddings
     embed_model = GeminiEmbedding(
-        model="models/embedding-001",
-        title="Oppenheimer movie wikipedia",
+        model="models/embedding-004",
+        title="wikipedia page of the 'Oppenheimer' movie",
         embed_batch_size=16,
         api_key=api_key,
     )
