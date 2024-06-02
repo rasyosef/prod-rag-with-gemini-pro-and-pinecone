@@ -24,6 +24,7 @@ def is_valid_gemini_api_key(api_key):
     return False
 
 
+# Create query engine using the user-provided api key
 def prepare_query_engine(api_key):
     # Gemini Embeddings
     embed_model = GeminiEmbedding(
