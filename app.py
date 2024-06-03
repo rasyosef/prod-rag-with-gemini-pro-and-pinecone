@@ -18,6 +18,7 @@ pinecone_index = pinecone.Index(INDEX_NAME)
 vector_store = PineconeVectorStore(pinecone_index=pinecone_index)
 
 
+# Check if the provided Gemini api key has valid length
 def is_valid_gemini_api_key(api_key):
     if len(api_key.strip()) == 39:
         return True
